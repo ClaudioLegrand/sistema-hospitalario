@@ -20,6 +20,7 @@ public abstract class Persona {
         this.dni = validarDni(dni);
         this.fechaNacimiento = fechaNacimiento;
         this.tipoSangre = tipoSangre;
+    }
 
     public String getNombre() {
         return nombre;
