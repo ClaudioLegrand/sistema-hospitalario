@@ -64,7 +64,7 @@ public abstract class Persona {
         se puede llmaar directamente sin instanciar la clase persona.*/
         Validaciones.textoObligatorio(dni, "El DNI es obligatorio"); // primer validación.
         if (dni.length() < 7 || dni.length() > 8 || !Validaciones.sonDigitos(dni)) { //segunda validación.
-            throw new IllegalArgumentException("El DNI debe tener 7 u 8 dígitos");
+            throw new IllegalArgumentException("El DNI debe tener 7 u 8 caracteres y todos deben ser dígitos");
         }
         return dni;
     }
