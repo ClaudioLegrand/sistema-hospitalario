@@ -65,7 +65,9 @@ public class Hospital {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if (nombre != null) {
+            this.nombre = nombre;
+        }
     }
 
     public String getDireccion() {
@@ -73,7 +75,9 @@ public class Hospital {
     }
 
     public void setDireccion(String direccion) {
-        this.direccion = direccion;
+        if (direccion != null) {
+            this.direccion = direccion;
+        }
     }
 
     public String getTelefono() {
@@ -81,6 +85,8 @@ public class Hospital {
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        if (telefono != null) {
+            this.telefono = telefono;
+        }
     }
 }

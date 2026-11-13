@@ -56,7 +56,7 @@ public class Paciente extends Persona {
             cita.setPaciente(this);
         }
         
-        if (noNull){
+        if (noNull && !this.citas.contains(cita)){
             this.citas.add(cita);
         }
         

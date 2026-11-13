@@ -22,6 +22,11 @@ public class Cita {
         this.observaciones = "";
         
         setPaciente(paciente);
+
+        // Cumpliendo la bidireccionalidad
+        if (sala != null && !sala.getCitas().contains(this)) {
+            sala.addCita(this);
+        }
     }
 
     public Paciente getPaciente() {

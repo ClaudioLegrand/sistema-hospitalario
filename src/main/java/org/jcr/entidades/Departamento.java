@@ -24,7 +24,10 @@ public class Departamento {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if (nombre != null){
+
+            this.nombre = nombre;
+        }
     }
 
     public EspecialidadMedica getEspecialidad() {
@@ -32,7 +35,10 @@ public class Departamento {
     }
 
     public void setEspecialidad(EspecialidadMedica especialidad) {
-        this.especialidad = especialidad;
+        if (especialidad != null){
+
+            this.especialidad = especialidad;
+        }
     }
 
     public Hospital getHospital() {
@@ -53,16 +59,20 @@ public class Departamento {
     public void agregarMedico(Medico medico) {
         if (medico != null && !this.medicos.contains(medico)) {
             this.medicos.add(medico);
-           
+
         }
     }
 
-//    public Sala crearSala(String numero, String tipo) {
-//        
-////        Sala nuevaSala = new Sala(numero, tipo);
-////        this.salas.add(nuevaSala);
-////        return nuevaSala;
-//    }
+    public Sala crearSala(String numero, String tipo) {
+
+        Sala nuevaSala = new Sala(numero, tipo, this);
+    
+        if (!this.salas.contains(nuevaSala)) {
+            this.salas.add(nuevaSala);
+        }
+        
+        return nuevaSala;
+    }
 
     public List<Medico> getMedicos() {
         return new ArrayList<>(medicos);
