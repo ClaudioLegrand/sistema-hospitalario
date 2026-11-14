@@ -3,6 +3,7 @@ package org.jcr.entidades;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.jcr.enums.EspecialidadMedica;
 
 public class Departamento {
@@ -36,15 +37,12 @@ public class Departamento {
     public void setHospital(Hospital hospital) {
         if (this.hospital != hospital) {
 
-            // Salir de la lista del hospital anterior (si estaba en uno)
             if (this.hospital != null) {
                 this.hospital.getInternalDepartamentos().remove(this);
             }
-            
-            // Guardar la nueva referencia
+
             this.hospital = hospital;
 
-            // Entrar en la lista del nuevo hospital (si no es null y no está duplicado)
             if (hospital != null && !hospital.getInternalDepartamentos().contains(this)) {
                 hospital.getInternalDepartamentos().add(this);
             }
