@@ -2,21 +2,22 @@ package org.jcr.entidades;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.jcr.enums.TipoSangre;
 
-public class Paciente extends Persona { 
+public class Paciente extends Persona {
 
-    private HistoriaClinica historiaClinica;
-    private String telefono;
-    private String direccion;
+    private final HistoriaClinica historiaClinica;
+    private final String telefono;
+    private final String direccion;
     private Hospital hospital;
-    private List<Cita> citas;
+    private final List<Cita> citas;
 
     public Paciente(String nombre, String apellido, String dni, LocalDate fechaNacimiento, TipoSangre tipoSangre, String telefono, String direccion) {
         super(nombre, apellido, dni, fechaNacimiento, tipoSangre);
-        this.telefono = telefono;
-        this.direccion = direccion;
+        this.telefono = Validaciones.textoObligatorio(telefono, "El teléfono es obligatorio");
+        this.direccion = Validaciones.textoObligatorio(direccion, "La dirección es obligatoria");
         this.historiaClinica = new HistoriaClinica(this);
         this.citas = new ArrayList<>();
     }
@@ -39,13 +40,13 @@ public class Paciente extends Persona {
 
     public void setHospital(Hospital hospital) {
         if (this.hospital != hospital) {
-            // Salir de la lista del hospital anterior (si estaba en uno)
+            // 1. Salir de la lista del hospital anterior (si estaba en uno)
             if (this.hospital != null) {
                 this.hospital.getInternalPacientes().remove(this);
             }
-            // Guardar la nueva referencia
+            // 2. Guardar la nueva referencia
             this.hospital = hospital;
-            // Entrar en la lista del nuevo hospital (si no es null)
+            // 3. Entrar en la lista del nuevo hospital (si no es null)
             if (hospital != null && !hospital.getInternalPacientes().contains(this)) {
                 hospital.getInternalPacientes().add(this);
             }
@@ -53,21 +54,13 @@ public class Paciente extends Persona {
     }
 
     public void addCita(Cita cita) {
-        
-        boolean noNull = cita != null;
-        
-        if (noNull && cita.getPaciente() != this){
-        
-            cita.setPaciente(this);
-        }
-        
-        if (noNull && !this.citas.contains(cita)){
+        Validaciones.noNulo(cita, "La cita no puede ser nula");
+        if (!this.citas.contains(cita)) {
             this.citas.add(cita);
         }
-        
     }
 
     public List<Cita> getCitas() {
-        return citas;
+        return Collections.unmodifiableList(citas);
     }
 }

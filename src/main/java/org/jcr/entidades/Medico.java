@@ -56,6 +56,8 @@ public class Medico extends Persona {
     
     public void addCita(Cita cita){
         Validaciones.noNulo(cita, "La cita es obligatoria");
-        citas.add(cita); //agregar las citas
+        if (!this.citas.contains(cita)) {
+            this.citas.add(cita);
+        }
     }
 }

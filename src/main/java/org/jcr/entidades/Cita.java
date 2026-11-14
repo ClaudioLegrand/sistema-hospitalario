@@ -66,7 +66,8 @@ public class Cita {
     }
 
     public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones; //validar?
+        
+        this.observaciones = (observaciones != null) ? observaciones : "";
     }
     
 }
