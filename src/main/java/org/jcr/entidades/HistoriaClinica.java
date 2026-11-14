@@ -38,24 +38,21 @@ public class HistoriaClinica {
 
     public void agregarDiagnostico(String diagnostico) {
         
-        if (diagnostico != null){
-        
+        if (diagnostico != null && !diagnostico.trim().isEmpty()) {
             this.diagnosticos.add(diagnostico);
         }
     }
 
     public void agregarTratamiento(String tratamiento) {
         
-        if (tratamiento != null){
-            
+        if (tratamiento != null && !tratamiento.trim().isEmpty()) {
             this.tratamientos.add(tratamiento);
         }
     }
 
     public void agregarAlergia(String alergia) {
         
-        if (alergia != null){
-            
+        if (alergia != null && !alergia.trim().isEmpty()) {
             this.alergias.add(alergia);
         }
         
