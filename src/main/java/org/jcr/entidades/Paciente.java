@@ -39,10 +39,15 @@ public class Paciente extends Persona {
 
     public void setHospital(Hospital hospital) {
         if (this.hospital != hospital) {
+            // Salir de la lista del hospital anterior (si estaba en uno)
+            if (this.hospital != null) {
+                this.hospital.getInternalPacientes().remove(this);
+            }
+            // Guardar la nueva referencia
             this.hospital = hospital;
-
-            if (hospital != null && !hospital.getPacientes().contains(this)) {
-                hospital.agregarPaciente(this);
+            // Entrar en la lista del nuevo hospital (si no es null)
+            if (hospital != null && !hospital.getInternalPacientes().contains(this)) {
+                hospital.getInternalPacientes().add(this);
             }
         }
     }
