@@ -1,75 +1,60 @@
 package org.jcr.entidades;
 
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hospital {
 
-    private String nombre;
-    private String direccion;
-    private String telefono;
-    private List<Departamento> departamentos;
-    private List<Paciente> pacientes;
+    private final String nombre;
+    private final String direccion;
+    private final String telefono;
+    private final List<Departamento> departamentos;
+    private final List<Paciente> pacientes;
 
     public Hospital(String nombre, String direccion, String telefono) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
+        this.nombre = Validaciones.textoObligatorio(nombre, "El nombre del hospital es obligatorio");
+        this.direccion = Validaciones.textoObligatorio(direccion, "La dirección del hospital es obligatoria");
+        this.telefono = Validaciones.textoObligatorio(telefono, "El teléfono del hospital es obligatorio");
         this.departamentos = new ArrayList<>();
         this.pacientes = new ArrayList<>();
     }
-    
-    public void agregarDepartamento(Departamento departamento) {
-        
-        boolean noNull = departamento != null;
-        
-        // Si el departamento no tiene este hospital asignado, se lo asignamos
-        if (noNull && departamento.getHospital() != this) {
-            departamento.setHospital(this);
-        }
 
-        // Si no esta dentro de la lista se agrega 
-        if (noNull && !this.departamentos.contains(departamento)) {
-            this.departamentos.add(departamento);
-        }
+    public void agregarDepartamento(Departamento departamento) {
+        Validaciones.noNulo(departamento, "El departamento no puede ser nulo");
+
+        // Delega en la otra punta para que un solo método actualice las dos listas
+        departamento.setHospital(this);
     }
 
     public void agregarPaciente(Paciente paciente) {
-        
-        boolean noNull = paciente != null;
-        
-        if (noNull && paciente.getHospital() != this) {
-            paciente.setHospital(this);
-        }
+        Validaciones.noNulo(paciente, "El paciente no puede ser nulo");
 
-        if (noNull && !this.pacientes.contains(paciente)) {
-            this.pacientes.add(paciente);
-        }
+        // Delega en la otra punta para que un solo método actualice las dos listas
+        paciente.setHospital(this);
     }
 
-    
     public List<Departamento> getDepartamentos() {
-        return new ArrayList<>(departamentos); // Pasamos una copia por seguridad
+        return Collections.unmodifiableList(departamentos);
     }
 
     public List<Paciente> getPacientes() {
-        return new ArrayList<>(pacientes); // Pasamos una copia por seguridad
+        return Collections.unmodifiableList(pacientes);
     }
 
-    // Visibilidad en paquete
+    // Visibilidad de paquete devuelve la lista real para sincronización interna
     List<Departamento> getInternalDepartamentos() {
-        return departamentos; // Referencia directa
+        return departamentos;
     }
 
-    // Visibilidad en paquete
+    // Visibilidad de paquete devuelve la lista real para sincronización interna
     List<Paciente> getInternalPacientes() {
-        return pacientes; // Referencia directa
+        return pacientes;
     }
 
     public String getNombre() {
         return nombre;
     }
-
 
     public String getDireccion() {
         return direccion;
@@ -78,5 +63,4 @@ public class Hospital {
     public String getTelefono() {
         return telefono;
     }
-
 }

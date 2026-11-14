@@ -1,19 +1,21 @@
 package org.jcr.entidades;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.jcr.enums.EspecialidadMedica;
 
 public class Departamento {
 
-    private String nombre;
-    private EspecialidadMedica especialidad;
+    private final String nombre;
+    private final EspecialidadMedica especialidad;
     private Hospital hospital;
-    private List<Medico> medicos;
-    private List<Sala> salas;
+    private final List<Medico> medicos;
+    private final List<Sala> salas;
 
     public Departamento(String nombre, EspecialidadMedica especialidad) {
-        this.nombre = nombre;
+        this.nombre = Validaciones.textoObligatorio(nombre, "El nombre del departamento es obligatorio");
+        Validaciones.noNulo(especialidad, "La especialidad médica es obligatoria");
         this.especialidad = especialidad;
         this.medicos = new ArrayList<>();
         this.salas = new ArrayList<>();
@@ -23,65 +25,57 @@ public class Departamento {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        if (nombre != null){
-
-            this.nombre = nombre;
-        }
-    }
-
     public EspecialidadMedica getEspecialidad() {
         return especialidad;
-    }
-
-    public void setEspecialidad(EspecialidadMedica especialidad) {
-        if (especialidad != null){
-
-            this.especialidad = especialidad;
-        }
     }
 
     public Hospital getHospital() {
         return hospital;
     }
-    
+
     public void setHospital(Hospital hospital) {
         if (this.hospital != hospital) {
+
+            // Salir de la lista del hospital anterior (si estaba en uno)
+            if (this.hospital != null) {
+                this.hospital.getInternalDepartamentos().remove(this);
+            }
+            
+            // Guardar la nueva referencia
             this.hospital = hospital;
-            
-            
-            if (hospital != null && !hospital.getDepartamentos().contains(this)) {
-                hospital.agregarDepartamento(this);
+
+            // Entrar en la lista del nuevo hospital (si no es null y no está duplicado)
+            if (hospital != null && !hospital.getInternalDepartamentos().contains(this)) {
+                hospital.getInternalDepartamentos().add(this);
             }
         }
     }
 
     public void agregarMedico(Medico medico) {
+        Validaciones.noNulo(medico, "El médico no puede ser nulo");
 
-        if (medico != null && !this.medicos.contains(medico)) {
-            this.medicos.add(medico);
-        }
+        // Delega en Medico 
+        medico.setDepartamento(this);
     }
 
     public Sala crearSala(String numero, String tipo) {
+        Validaciones.textoObligatorio(numero, "El número de sala es obligatorio");
+        Validaciones.textoObligatorio(tipo, "El tipo de sala es obligatorio");
 
         Sala nuevaSala = new Sala(numero, tipo, this);
-    
-        if (!this.salas.contains(nuevaSala)) {
-            this.salas.add(nuevaSala);
-        }
-        
+        this.salas.add(nuevaSala);
         return nuevaSala;
     }
 
     public List<Medico> getMedicos() {
-        return new ArrayList<>(medicos);
+        return Collections.unmodifiableList(medicos);
     }
 
     public List<Sala> getSalas() {
-        return new ArrayList<>(salas);
+        return Collections.unmodifiableList(salas);
     }
 
+    // Visibilidad de paquete
     List<Medico> getInternalMedicos() {
         return medicos;
     }
