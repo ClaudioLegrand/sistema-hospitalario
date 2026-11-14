@@ -13,7 +13,7 @@ import org.jcr.excepciones.CitaException;
 public class CitaManager implements CitaService {
 
     private static final int HORAS_ENTRE_CITAS = 2;
-    private List<Cita> citas;
+    private List<Cita> citas = new ArrayList<>();
 
     @Override
     public Cita programarCita(Paciente paciente, Medico medico, Sala sala, LocalDateTime fechaHora, double costo) throws CitaException {
