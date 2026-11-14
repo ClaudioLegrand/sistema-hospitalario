@@ -58,11 +58,4 @@ public class Medico extends Persona {
         Validaciones.noNulo(cita, "La cita es obligatoria");
         citas.add(cita); //agregar las citas
     }
-    
-    
-    
-    
-    
-    
-
 }

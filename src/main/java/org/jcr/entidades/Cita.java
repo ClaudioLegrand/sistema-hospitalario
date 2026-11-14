@@ -14,19 +14,22 @@ public class Cita {
     private String observaciones;
 
     public Cita(Paciente paciente, Medico medico, Sala sala, LocalDateTime fechaHora, double costo) {
+        Validaciones.noNulo(paciente, "El paciente es obligatorio");
+        Validaciones.noNulo(medico, "El médico es obligatorio");
+        Validaciones.noNulo(sala, "La sala es obligatoria");
+        Validaciones.noNulo(fechaHora, "La fecha y hora son obligatorias");
+        Validaciones.noNulo(costo, "El costo es obligatorio");
+        this.paciente = paciente;
         this.medico = medico;
         this.sala = sala;
         this.fechaHora = fechaHora;
-        this.costo = costo;
+        this.costo = costo; //QUE PASA SI EL COSTO ES NEGATIVO? VALIDAR, tiene que ser digito, no ser nulo y a su vez no negativo.
         this.estado = EstadoCita.PROGRAMADA;
         this.observaciones = "";
+        this.paciente.addCita(this); //agregar la cita al paciente
+        this.medico.addCita(this); //agregar la cita al medico 
+        this.sala.addCita(this); //agregar la cita a la sala
         
-        setPaciente(paciente);
-
-        // Cumpliendo la bidireccionalidad
-        if (sala != null && !sala.getCitas().contains(this)) {
-            sala.addCita(this);
-        }
     }
 
     public Paciente getPaciente() {
@@ -53,7 +56,8 @@ public class Cita {
         return estado;
     }
 
-    public void setEstado(EstadoCita estado) {
+    public void setEstado(EstadoCita estado) { // poner como programada
+        Validaciones.noNulo(estado, "El estado de la cita es obligatorio");
         this.estado = estado;
     }
 
@@ -62,21 +66,7 @@ public class Cita {
     }
 
     public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
+        this.observaciones = observaciones; //validar?
     }
-
-    public void setPaciente(Paciente paciente) {
-        
-        boolean noNull = paciente != null;
-        
-        if (noNull){
-            this.paciente = paciente;
-        }
-        
-        if (noNull && !paciente.getCitas().contains(this)) {
-            paciente.addCita(this);
-        }
-    }
-    
     
 }
