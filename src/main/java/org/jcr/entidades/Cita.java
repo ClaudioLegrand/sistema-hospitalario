@@ -1,6 +1,7 @@
 package org.jcr.entidades;
 
 import java.time.LocalDateTime;
+
 import org.jcr.enums.EstadoCita;
 
 public class Cita {
@@ -10,7 +11,7 @@ public class Cita {
     private Sala sala;
     private LocalDateTime fechaHora;
     private double costo;
-    private EstadoCita estado; 
+    private EstadoCita estado;
     private String observaciones;
 
     public Cita(Paciente paciente, Medico medico, Sala sala, LocalDateTime fechaHora, double costo) {
@@ -18,18 +19,13 @@ public class Cita {
         Validaciones.noNulo(medico, "El médico es obligatorio");
         Validaciones.noNulo(sala, "La sala es obligatoria");
         Validaciones.noNulo(fechaHora, "La fecha y hora son obligatorias");
-        Validaciones.noNulo(costo, "El costo es obligatorio");
         this.paciente = paciente;
         this.medico = medico;
         this.sala = sala;
         this.fechaHora = fechaHora;
-        this.costo = costo; //QUE PASA SI EL COSTO ES NEGATIVO? VALIDAR, tiene que ser digito, no ser nulo y a su vez no negativo.
+        this.costo = costo;
         this.estado = EstadoCita.PROGRAMADA;
         this.observaciones = "";
-        this.paciente.addCita(this); //agregar la cita al paciente
-        this.medico.addCita(this); //agregar la cita al medico 
-        this.sala.addCita(this); //agregar la cita a la sala
-        
     }
 
     public Paciente getPaciente() {
@@ -56,7 +52,7 @@ public class Cita {
         return estado;
     }
 
-    public void setEstado(EstadoCita estado) { // poner como programada
+    public void setEstado(EstadoCita estado) {
         Validaciones.noNulo(estado, "El estado de la cita es obligatorio");
         this.estado = estado;
     }
@@ -66,8 +62,8 @@ public class Cita {
     }
 
     public void setObservaciones(String observaciones) {
-        
+
         this.observaciones = (observaciones != null) ? observaciones : "";
     }
-    
+
 }

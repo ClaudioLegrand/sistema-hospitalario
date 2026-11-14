@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoriaClinica {
-    
-    
 
     private String numeroHistoria;
     private Paciente paciente;
@@ -32,30 +30,26 @@ public class HistoriaClinica {
         return paciente;
     }
 
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
-    }
-
     public void agregarDiagnostico(String diagnostico) {
-        
+
         if (diagnostico != null && !diagnostico.trim().isEmpty()) {
             this.diagnosticos.add(diagnostico);
         }
     }
 
     public void agregarTratamiento(String tratamiento) {
-        
+
         if (tratamiento != null && !tratamiento.trim().isEmpty()) {
             this.tratamientos.add(tratamiento);
         }
     }
 
     public void agregarAlergia(String alergia) {
-        
+
         if (alergia != null && !alergia.trim().isEmpty()) {
             this.alergias.add(alergia);
         }
-        
+
     }
 
     public List<String> getDiagnosticos() {
@@ -71,7 +65,7 @@ public class HistoriaClinica {
     }
 
     private String generarNumeroHistoria() {
-        
+
         return "HC-" + paciente.getDni() + "-" + fechaCreacion.getYear();
     }
 }
