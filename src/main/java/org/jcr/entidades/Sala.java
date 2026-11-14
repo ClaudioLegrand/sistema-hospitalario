@@ -1,18 +1,21 @@
 package org.jcr.entidades;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Sala {
 
-    private String numero;
-    private String tipo;
-    private Departamento departamento;
-    private List<Cita> citas;
-    
+    private final String numero;
+    private final String tipo;
+    private final Departamento departamento;
+    private final List<Cita> citas;
+
+    // Visibilidad de paquete solo Departamento la instancia mediante crearSala()
     Sala(String numero, String tipo, Departamento departamento) {
-        this.numero = numero;
-        this.tipo = tipo;
+        this.numero = Validaciones.textoObligatorio(numero, "El número de sala es obligatorio");
+        this.tipo = Validaciones.textoObligatorio(tipo, "El tipo de sala es obligatorio");
+        Validaciones.noNulo(departamento, "El departamento no puede ser nulo");
         this.departamento = departamento;
         this.citas = new ArrayList<>();
     }
@@ -30,16 +33,13 @@ public class Sala {
     }
 
     public void addCita(Cita cita) {
-        if (cita == null) {
-            return;
-        }
-        
+        Validaciones.noNulo(cita, "La cita no puede ser nula");
         if (!this.citas.contains(cita)) {
             this.citas.add(cita);
         }
     }
 
     public List<Cita> getCitas() {
-        return new ArrayList<>(citas); 
+        return Collections.unmodifiableList(citas);
     }
 }
