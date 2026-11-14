@@ -22,20 +22,13 @@ final class Validaciones {
     }
     
     static boolean sonDigitos(String texto){
-
-        // LO DEJAMOS?
-        if (texto == null || texto.isEmpty()) {
-            return false;
-        }
-
         for (int i = 0; i < texto.length(); i++) {
             char caracter= texto.charAt(i);
             if (!Character.isDigit(caracter)){
                 return false;
             }
         }
-        return true;
-                
+        return true;        
     }
 }
             
