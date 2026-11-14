@@ -57,9 +57,9 @@ public class Departamento {
     }
 
     public void agregarMedico(Medico medico) {
+
         if (medico != null && !this.medicos.contains(medico)) {
             this.medicos.add(medico);
-
         }
     }
 

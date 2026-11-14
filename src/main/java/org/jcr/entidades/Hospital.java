@@ -18,14 +18,17 @@ public class Hospital {
         this.departamentos = new ArrayList<>();
         this.pacientes = new ArrayList<>();
     }
-
+    
     public void agregarDepartamento(Departamento departamento) {
         
         boolean noNull = departamento != null;
         
+        // Si el departamento no tiene este hospital asignado, se lo asignamos
         if (noNull && departamento.getHospital() != this) {
             departamento.setHospital(this);
         }
+
+        // Si no esta dentro de la lista se agrega 
         if (noNull && !this.departamentos.contains(departamento)) {
             this.departamentos.add(departamento);
         }
@@ -44,6 +47,7 @@ public class Hospital {
         }
     }
 
+    
     public List<Departamento> getDepartamentos() {
         return new ArrayList<>(departamentos); // Pasamos una copia por seguridad
     }
@@ -52,10 +56,12 @@ public class Hospital {
         return new ArrayList<>(pacientes); // Pasamos una copia por seguridad
     }
 
+    // Visibilidad en paquete
     List<Departamento> getInternalDepartamentos() {
         return departamentos; // Referencia directa
     }
 
+    // Visibilidad en paquete
     List<Paciente> getInternalPacientes() {
         return pacientes; // Referencia directa
     }
@@ -64,29 +70,13 @@ public class Hospital {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        if (nombre != null) {
-            this.nombre = nombre;
-        }
-    }
 
     public String getDireccion() {
         return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        if (direccion != null) {
-            this.direccion = direccion;
-        }
     }
 
     public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
-        if (telefono != null) {
-            this.telefono = telefono;
-        }
-    }
 }

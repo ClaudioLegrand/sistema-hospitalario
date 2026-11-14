@@ -1,1 +1,10 @@
-# Carpetas de compilación de Maven /target/ target/ # Archivos de configuración de IDEs (IntelliJ, Eclipse, VS Code) .idea/ *.iml .classpath .project .settings/ .vscode/ # Archivos del sistema operativo .DS_Store Thumbs.db
+/target/
+target/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+.DS_Store
+Thumbs.db
