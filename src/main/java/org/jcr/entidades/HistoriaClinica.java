@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoriaClinica {
+    
+    
 
     private String numeroHistoria;
     private Paciente paciente;
