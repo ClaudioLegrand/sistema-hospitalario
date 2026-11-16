@@ -22,17 +22,10 @@ public class Departamento {
         this.salas = new ArrayList<>();
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
     public EspecialidadMedica getEspecialidad() {
         return especialidad;
     }
-
-    public Hospital getHospital() {
-        return hospital;
-    }
+    
 
     public void setHospital(Hospital hospital) {
         if (this.hospital != hospital) {

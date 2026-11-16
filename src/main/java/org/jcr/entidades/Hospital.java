@@ -16,7 +16,7 @@ public class Hospital {
         this.nombre = Validaciones.textoObligatorio(nombre, "El nombre del hospital es obligatorio");
         this.direccion = Validaciones.textoObligatorio(direccion, "La dirección del hospital es obligatoria");
         this.telefono = Validaciones.textoObligatorio(telefono, "El teléfono del hospital es obligatorio");
-        this.departamentos = new ArrayList<>();
+        this.departamentos = new ArrayList<>(); // evitar error de NullPointerException 
         this.pacientes = new ArrayList<>();
     }
 
@@ -52,15 +52,4 @@ public class Hospital {
         return pacientes;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
 }

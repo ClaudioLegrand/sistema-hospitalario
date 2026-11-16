@@ -25,7 +25,7 @@ final class Validaciones {
         for (int i = 0; i < texto.length(); i++) {
             char caracter= texto.charAt(i);
             if (!Character.isDigit(caracter)){
-                return false;
+                return false; //41A4252...
             }
         }
         return true;        

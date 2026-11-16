@@ -2,6 +2,7 @@ package org.jcr.entidades;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HistoriaClinica {
@@ -53,15 +54,15 @@ public class HistoriaClinica {
     }
 
     public List<String> getDiagnosticos() {
-        return new ArrayList<>(diagnosticos);
+        return Collections.unmodifiableList(diagnosticos);
     }
 
     public List<String> getTratamientos() {
-        return new ArrayList<>(tratamientos);
+        return Collections.unmodifiableList(tratamientos);
     }
 
     public List<String> getAlergias() {
-        return new ArrayList<>(alergias);
+        return Collections.unmodifiableList(alergias);
     }
 
     private String generarNumeroHistoria() {
