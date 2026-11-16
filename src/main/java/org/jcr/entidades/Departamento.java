@@ -70,4 +70,10 @@ public class Departamento {
     List<Medico> getInternalMedicos() {
         return medicos;
     }
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+    
+    
 }
